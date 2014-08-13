@@ -1,52 +1,61 @@
-NAME
-    File::Path::Set - Return a set of files along a path
+=head1 NAME
 
-VERSION
-    Version 0.02
+File::Path::Set - Find files along a path
 
-SYNOPSIS
-    This module finds all readable files along a defined path, possibly
-    stoping at a base path.
+=head1 VERSION
 
-    This module mimics the behaviour of how apache searches for .htaccess
-    files.
+Version 0.02
 
-        use File::Path::Set;
+=head1 SYNOPSIS
 
-        my $set = File::Path::Set->new(
-            base => '/bar/baz',
-            filename => 'config.inc'
-        );
-        $set->file_set('/bar/baz/quux/') 
-            => (qw(/bar/baz/quux/config.inc /bar/baz/config.inc))
+This module finds all readable files along a defined path, possibly stoping at a base path.
 
-METHODS
-  new()
-    Returns a new File::Path::Set object. Only required parameter is
-    filename. Other possible paramters are base, which is the last path to
-    consider. It defaults to the rootdir ('/' on Unix). There is also a
-    paramter names predicate that can be set to a sub routine, which will be
-    called with every filename. The filenames are only returned if predicate
-    return with a true value. If you do not set this, sub { -r $_[0] } is
-    applied, so that only readable files will be returned.
+This module mimics the behaviour of how apache searches for .htaccess files.
 
-  files($path)
-    Returns an array of files along $path. The files are sorted with the
-    shortest file path at the first position.
+    use File::Path::Set;
 
-AUTHOR
-    Mario Domgoergen, "<dom at math.uni-bonn.de>"
+    my $set = File::Path::Set->new(
+	base => '/bar/baz',
+	filename => 'config.inc'
+    );
+    $set->file_set('/bar/baz/quux/');
+    ## => (qw(/bar/baz/quux/config.inc /bar/baz/config.inc))
 
-SUPPORT
-    You can find documentation for this module with the perldoc command.
+=head1 METHODS
 
-        perldoc File::Path::Set
+=head2 new()
 
-    You can also look for information at:
+Returns a new File::Path::Set object. Only required parameter is
+filename.  Other possible paramters are base, which is the last
+path to consider. It defaults to the rootdir ('/' on Unix). There
+is also a paramter names predicate that can be set to a sub routine,
+which will be called with every filename. The filenames are only
+returned if predicate return with a true value. If you do not set
+this, sub { -r $_[0] } is applied, so that only readable files will
+be returned.
 
-COPYRIGHT & LICENSE
-    Copyright 2008 Mario Domgoergen, all rights reserved.
+=head2 files($path)
 
-    This program is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
+Returns an array of files along $path. The files are sorted with
+the shortest file path at the first position.
+
+=head1 AUTHOR
+
+Mario Domgoergen, C<< <mario at domgoergen.com> >>
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc File::Path::Set
+
+
+You can also look for information at:
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2014 Mario Domgoergen, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
